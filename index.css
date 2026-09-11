@@ -1,0 +1,823 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+:root {
+    --black: #05070b;
+    --dark: #0b0f16;
+    --white: #f5f7fa;
+    --silver: #aeb6c2;
+    --blue: #148cff;
+    --yellow: #ffd21f;
+    --purple: #a855f7;
+    --red: #ff304f;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: var(--black);
+    color: var(--white);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    user-select: none;
+}
+
+/* ---------------- SCREEN SYSTEM ---------------- */
+
+.screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(circle at center, #17202e 0%, #080b11 50%, #020306 100%);
+    z-index: 50;
+}
+
+.screen.active {
+    display: flex;
+}
+
+
+/* ---------------- AGE SCREEN ---------------- */
+
+.age-card,
+.control-card {
+    width: min(92%, 520px);
+    padding: 45px 40px;
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.08),
+            rgba(255, 255, 255, 0.02)
+        );
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 28px;
+
+    box-shadow:
+        0 30px 100px rgba(0, 0, 0, 0.8),
+        inset 0 1px rgba(255, 255, 255, 0.1);
+
+    backdrop-filter: blur(25px);
+}
+
+.bmw-logo {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 25px;
+
+    border-radius: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 5px solid white;
+
+    background:
+        conic-gradient(
+            #1688ff 0deg 90deg,
+            white 90deg 180deg,
+            #1688ff 180deg 270deg,
+            white 270deg 360deg
+        );
+
+    box-shadow:
+        0 0 35px rgba(20, 140, 255, 0.5);
+}
+
+.bmw-logo span {
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 1px;
+    color: #10141a;
+}
+
+.small-label {
+    color: var(--blue);
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 4px;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-size: clamp(42px, 9vw, 72px);
+    line-height: 0.9;
+    font-weight: 900;
+    letter-spacing: -3px;
+}
+
+h1 span {
+    background: linear-gradient(90deg, #ffffff, #8d99a8);
+    -webkit-background-clip: text;
+    color: transparent;
+}
+
+.intro {
+    color: #9da7b4;
+    line-height: 1.6;
+    margin: 25px 0;
+}
+
+.age-card label {
+    display: block;
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: #9ba4af;
+    margin-bottom: 8px;
+}
+
+#ageInput {
+    width: 100%;
+    padding: 17px;
+    border-radius: 12px;
+    border: 1px solid #303743;
+    outline: none;
+    background: #0a0e15;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+#ageInput:focus {
+    border-color: var(--blue);
+    box-shadow: 0 0 20px rgba(20, 140, 255, 0.25);
+}
+
+.main-button {
+    width: 100%;
+    border: none;
+    padding: 17px 25px;
+    border-radius: 12px;
+    color: white;
+    font-weight: 900;
+    letter-spacing: 2px;
+    cursor: pointer;
+
+    background:
+        linear-gradient(
+            100deg,
+            #0878ef,
+            #20a1ff
+        );
+
+    box-shadow:
+        0 10px 35px rgba(20, 140, 255, 0.3);
+
+    transition: 0.2s;
+}
+
+.main-button:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 15px 45px rgba(20, 140, 255, 0.5);
+}
+
+.main-button:active {
+    transform: scale(0.98);
+}
+
+.error-message {
+    min-height: 20px;
+    color: #ff526c;
+    font-size: 13px;
+    margin-top: 12px;
+}
+
+.legal-note {
+    color: #69727f;
+    font-size: 10px;
+    margin-top: 18px;
+}
+
+
+/* ---------------- CONTROLS ---------------- */
+
+.control-card h2,
+.garage-content h2 {
+    font-size: clamp(28px, 6vw, 45px);
+    margin-bottom: 10px;
+}
+
+.control-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 25px 0;
+}
+
+.control-option {
+    padding: 22px 10px;
+    border-radius: 15px;
+    border: 1px solid #29313d;
+    background: #0a0e15;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: 0.2s;
+}
+
+.control-option:hover,
+.control-option.selected {
+    border-color: var(--blue);
+    background: rgba(20, 140, 255, 0.1);
+    box-shadow: 0 0 25px rgba(20, 140, 255, 0.15);
+}
+
+.control-icon {
+    font-size: 30px;
+}
+
+.control-option small {
+    color: #737d89;
+}
+
+.tilt-message {
+    min-height: 18px;
+    color: #70b9ff;
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+
+/* ---------------- GARAGE ---------------- */
+
+.garage-content {
+    width: min(92%, 900px);
+    text-align: center;
+}
+
+.garage-car {
+    position: relative;
+    height: 300px;
+    margin: 20px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.car-glow {
+    position: absolute;
+    width: 500px;
+    height: 100px;
+    border-radius: 50%;
+    background: rgba(0, 110, 255, 0.3);
+    filter: blur(45px);
+}
+
+.garage-car-body {
+    width: 370px;
+    height: 115px;
+    border-radius: 70px 100px 35px 35px;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            160deg,
+            #dce2e8 0%,
+            #4f5965 22%,
+            #10151d 55%,
+            #06080b 100%
+        );
+
+    transform: perspective(500px) rotateX(4deg);
+
+    box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.8),
+        inset 0 3px 10px rgba(255, 255, 255, 0.4);
+}
+
+.car-roof {
+    position: absolute;
+    left: 90px;
+    top: -58px;
+    width: 210px;
+    height: 75px;
+
+    background: linear-gradient(160deg, #65717e, #10151c);
+
+    border-radius: 100px 100px 0 0;
+
+    border-bottom: 3px solid #202832;
+}
+
+.car-window {
+    position: absolute;
+    top: -47px;
+    width: 80px;
+    height: 48px;
+    background: linear-gradient(135deg, #4c91c4, #06111c);
+    border: 2px solid #778593;
+}
+
+.car-window.left {
+    left: 105px;
+    transform: skewX(-12deg);
+}
+
+.car-window.right {
+    right: 105px;
+    transform: skewX(12deg);
+}
+
+.headlight {
+    position: absolute;
+    width: 45px;
+    height: 13px;
+    top: 30px;
+    background: white;
+    box-shadow: 0 0 25px #62baff;
+}
+
+.headlight.left {
+    left: 15px;
+    transform: skewX(-25deg);
+}
+
+.headlight.right {
+    right: 15px;
+    transform: skewX(25deg);
+}
+
+.grille {
+    position: absolute;
+    left: 50%;
+    bottom: 15px;
+    transform: translateX(-50%);
+    width: 55px;
+    height: 35px;
+    border-radius: 50%;
+    border: 3px solid #15191f;
+    background: repeating-linear-gradient(
+        90deg,
+        #020305 0px,
+        #020305 5px,
+        #242b34 6px,
+        #020305 8px
+    );
+}
+
+.wheel {
+    position: absolute;
+    bottom: -30px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    background:
+        radial-gradient(
+            circle,
+            #89919b 0 12%,
+            #15191e 13% 32%,
+            #515a64 33% 39%,
+            #050609 40% 100%
+        );
+}
+
+.wheel-left {
+    left: 55px;
+}
+
+.wheel-right {
+    right: 55px;
+}
+
+.garage-stats {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 25px;
+}
+
+.garage-stats div {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.garage-stats span {
+    color: #69727e;
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+.garage-stats strong {
+    font-size: 18px;
+}
+
+
+/* ---------------- GAME ---------------- */
+
+.game-screen {
+    position: fixed;
+    inset: 0;
+    display: none;
+    background: #020306;
+}
+
+.game-screen.active {
+    display: block;
+}
+
+#gameCanvas {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+/* ---------------- HUD ---------------- */
+
+.hud {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 5;
+}
+
+.hud-box {
+    min-width: 105px;
+    padding: 10px 14px;
+    background: rgba(3, 6, 10, 0.72);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.hud-box span {
+    display: block;
+    color: #788391;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+.hud-box strong {
+    display: block;
+    margin-top: 5px;
+    font-size: 17px;
+}
+
+
+/* ---------------- NITRO ---------------- */
+
+.nitro-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: min(330px, 40vw);
+    z-index: 5;
+}
+
+.nitro-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.nitro-title strong {
+    color: #60b7ff;
+}
+
+.nitro-bar {
+    height: 12px;
+    background: #080c12;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid #29313b;
+}
+
+#nitroFill {
+    height: 100%;
+    width: 100%;
+    background: linear-gradient(
+        90deg,
+        #168cff,
+        #a855f7
+    );
+    box-shadow: 0 0 15px #168cff;
+    transition: width 0.15s linear;
+}
+
+.boost-options {
+    display: flex;
+    gap: 7px;
+    margin-top: 10px;
+}
+
+.boost-button {
+    flex: 1;
+    padding: 9px 5px;
+    border: 1px solid;
+    border-radius: 9px;
+    background: rgba(5, 8, 12, 0.8);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.boost-button span {
+    display: block;
+    font-size: 14px;
+}
+
+.boost-button small {
+    font-size: 7px;
+    letter-spacing: 1px;
+}
+
+.boost-button.blue {
+    border-color: #148cff;
+    color: #4eaeff;
+}
+
+.boost-button.yellow {
+    border-color: #ffd21f;
+    color: #ffe15e;
+}
+
+.boost-button.purple {
+    border-color: #a855f7;
+    color: #c483ff;
+}
+
+.boost-button:hover {
+    transform: translateY(-2px);
+}
+
+
+/* ---------------- BOOST EFFECT ---------------- */
+
+#boostEffect {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    z-index: 4;
+    background:
+        radial-gradient(
+            ellipse at center bottom,
+            rgba(60, 170, 255, 0.25),
+            transparent 50%
+        );
+    transition: opacity 0.15s;
+}
+
+#boostEffect.active {
+    opacity: 1;
+}
+
+
+/* ---------------- CONTROLS ---------------- */
+
+.mobile-controls {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 30px;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 8;
+}
+
+.direction-button,
+.brake-button {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    background: rgba(8, 12, 18, 0.8);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+}
+
+.direction-button {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    font-size: 28px;
+}
+
+.brake-button {
+    width: 75px;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.direction-button:active,
+.brake-button:active {
+    background: rgba(20, 140, 255, 0.4);
+    transform: scale(0.95);
+}
+
+.controls-help {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    color: #77818d;
+    font-size: 9px;
+    letter-spacing: 1px;
+    z-index: 5;
+}
+
+.controls-help span {
+    color: white;
+    margin-left: 12px;
+    margin-right: 3px;
+}
+
+.pause-button {
+    position: absolute;
+    right: 20px;
+    bottom: 20px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid #303844;
+    background: rgba(5, 8, 12, 0.75);
+    color: white;
+    z-index: 8;
+}
+
+
+/* ---------------- GAME OVER ---------------- */
+
+.overlay {
+    position: absolute;
+    inset: 0;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 20;
+}
+
+.overlay.active {
+    display: flex;
+}
+
+.game-over-card {
+    width: min(90%, 480px);
+    padding: 40px;
+    text-align: center;
+    background: #0b0f16;
+    border: 1px solid #303946;
+    border-radius: 25px;
+    box-shadow: 0 30px 100px rgba(0, 0, 0, 0.8);
+}
+
+.game-over-card h2 {
+    font-size: 45px;
+    margin-bottom: 30px;
+}
+
+.result {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.result div {
+    padding: 15px 5px;
+    background: #080b10;
+    border-radius: 10px;
+}
+
+.result span {
+    display: block;
+    color: #6d7784;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+.result strong {
+    display: block;
+    margin-top: 8px;
+    font-size: 15px;
+}
+
+
+/* ---------------- MOBILE ---------------- */
+
+@media (max-width: 800px) {
+
+    .age-card,
+    .control-card {
+        padding: 30px 22px;
+    }
+
+    .hud {
+        top: 10px;
+        left: 10px;
+        gap: 5px;
+    }
+
+    .hud-box {
+        min-width: 75px;
+        padding: 8px;
+    }
+
+    .hud-box strong {
+        font-size: 12px;
+    }
+
+    .hud-box span {
+        font-size: 7px;
+    }
+
+    .nitro-panel {
+        top: 115px;
+        left: 10px;
+        right: 10px;
+        width: auto;
+    }
+
+    .mobile-controls {
+        display: flex;
+    }
+
+    .controls-help {
+        display: none;
+    }
+
+    .pause-button {
+        top: 10px;
+        bottom: auto;
+        right: 10px;
+    }
+
+    .garage-car-body {
+        width: 280px;
+        height: 90px;
+    }
+
+    .garage-car {
+        height: 250px;
+    }
+
+    .car-roof {
+        left: 68px;
+        width: 160px;
+    }
+
+    .car-window.left {
+        left: 80px;
+    }
+
+    .car-window.right {
+        right: 80px;
+    }
+
+    .wheel-left {
+        left: 40px;
+    }
+
+    .wheel-right {
+        right: 40px;
+    }
+
+    .garage-stats {
+        gap: 25px;
+    }
+}
+
+@media (max-height: 650px) {
+
+    .mobile-controls {
+        bottom: 10px;
+    }
+
+    .direction-button {
+        width: 60px;
+        height: 60px;
+    }
+
+    .nitro-panel {
+        top: 90px;
+    }
+
+}

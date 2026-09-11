@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#05070b">
+
+    <title>Ultimate BMW Racing</title>
+
+    <!-- Correct CSS connection -->
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+    <!-- AGE SCREEN -->
+    <section id="ageScreen" class="screen active">
+
+        <div class="age-card">
+
+            <div class="bmw-logo">
+                <span>BMW</span>
+            </div>
+
+            <p class="small-label">ULTIMATE MOTORSPORT</p>
+
+            <h1>BMW NIGHT<br><span>RUSH</span></h1>
+
+            <p class="intro">
+                Enter your age to begin your racing experience.
+            </p>
+
+            <label for="ageInput">SELECT YOUR AGE</label>
+
+            <input
+                id="ageInput"
+                type="number"
+                min="0"
+                max="100"
+                value="18"
+                placeholder="Age"
+            >
+
+            <button id="startButton" class="main-button">
+                START RACE
+            </button>
+
+            <p id="ageError" class="error-message"></p>
+
+            <div class="legal-note">
+                Ages 0–100 are accepted. Drive responsibly.
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTROL SELECTION -->
+    <section id="controlScreen" class="screen">
+
+        <div class="control-card">
+
+            <p class="small-label">RACING SETUP</p>
+
+            <h2>CHOOSE YOUR CONTROLS</h2>
+
+            <p class="intro">
+                Select how you want to steer your car.
+            </p>
+
+            <div class="control-options">
+
+                <button class="control-option selected" data-control="buttons">
+                    <span class="control-icon">🎮</span>
+                    <strong>BUTTONS</strong>
+                    <small>Keyboard / Touch</small>
+                </button>
+
+                <button class="control-option" data-control="tilt">
+                    <span class="control-icon">📱</span>
+                    <strong>TILT</strong>
+                    <small>Phone Gyroscope</small>
+                </button>
+
+            </div>
+
+            <button id="controlStartButton" class="main-button">
+                ENTER GARAGE
+            </button>
+
+            <p id="tiltMessage" class="tilt-message"></p>
+
+        </div>
+
+    </section>
+
+
+    <!-- GARAGE -->
+    <section id="garageScreen" class="screen">
+
+        <div class="garage-content">
+
+            <p class="small-label">BMW MOTORSPORT GARAGE</p>
+
+            <h2>READY TO RACE?</h2>
+
+            <div class="garage-car">
+                <div class="car-glow"></div>
+                <div class="garage-car-body">
+                    <div class="car-roof"></div>
+                    <div class="car-window left"></div>
+                    <div class="car-window right"></div>
+                    <div class="headlight left"></div>
+                    <div class="headlight right"></div>
+                    <div class="grille"></div>
+                    <div class="wheel wheel-left"></div>
+                    <div class="wheel wheel-right"></div>
+                </div>
+            </div>
+
+            <div class="garage-stats">
+                <div>
+                    <span>ENGINE</span>
+                    <strong>V8</strong>
+                </div>
+
+                <div>
+                    <span>DRIVE</span>
+                    <strong>AWD</strong>
+                </div>
+
+                <div>
+                    <span>BOOST</span>
+                    <strong>NITRO</strong>
+                </div>
+            </div>
+
+            <button id="raceButton" class="main-button">
+                START ENGINE
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- GAME -->
+    <main id="gameScreen" class="game-screen">
+
+        <canvas id="gameCanvas"></canvas>
+
+        <!-- TOP HUD -->
+        <div class="hud">
+
+            <div class="hud-box">
+                <span>SPEED</span>
+                <strong><span id="speedValue">0</span> KM/H</strong>
+            </div>
+
+            <div class="hud-box">
+                <span>DISTANCE</span>
+                <strong><span id="distanceValue">0</span> M</strong>
+            </div>
+
+            <div class="hud-box">
+                <span>SCORE</span>
+                <strong id="scoreValue">0</strong>
+            </div>
+
+        </div>
+
+
+        <!-- NITRO HUD -->
+        <div class="nitro-panel">
+
+            <div class="nitro-title">
+                <span>NITRO BOOST</span>
+                <strong id="nitroPercent">100%</strong>
+            </div>
+
+            <div class="nitro-bar">
+                <div id="nitroFill"></div>
+            </div>
+
+            <div class="boost-options">
+
+                <button class="boost-button blue" data-boost="20">
+                    <span>20%</span>
+                    <small>BLUE</small>
+                </button>
+
+                <button class="boost-button yellow" data-boost="50">
+                    <span>50%</span>
+                    <small>YELLOW</small>
+                </button>
+
+                <button class="boost-button purple" data-boost="100">
+                    <span>100%</span>
+                    <small>PURPLE</small>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- BOOST EFFECT -->
+        <div id="boostEffect"></div>
+
+
+        <!-- MOBILE BUTTONS -->
+        <div id="mobileControls" class="mobile-controls">
+
+            <button id="leftButton" class="direction-button">
+                ◀
+            </button>
+
+            <button id="brakeButton" class="brake-button">
+                BRAKE
+            </button>
+
+            <button id="rightButton" class="direction-button">
+                ▶
+            </button>
+
+        </div>
+
+
+        <!-- PC HELP -->
+        <div class="controls-help">
+
+            <span>← →</span>
+            STEER
+
+            <span>SPACE</span>
+            NITRO
+
+            <span>↓</span>
+            BRAKE
+
+        </div>
+
+
+        <!-- PAUSE -->
+        <button id="pauseButton" class="pause-button">
+            II
+        </button>
+
+
+        <!-- GAME OVER -->
+        <div id="gameOver" class="overlay">
+
+            <div class="game-over-card">
+
+                <p class="small-label">RACE COMPLETE</p>
+
+                <h2>RACE OVER</h2>
+
+                <div class="result">
+
+                    <div>
+                        <span>SCORE</span>
+                        <strong id="finalScore">0</strong>
+                    </div>
+
+                    <div>
+                        <span>DISTANCE</span>
+                        <strong id="finalDistance">0 M</strong>
+                    </div>
+
+                    <div>
+                        <span>TOP SPEED</span>
+                        <strong id="finalSpeed">0 KM/H</strong>
+                    </div>
+
+                </div>
+
+                <button id="restartButton" class="main-button">
+                    RACE AGAIN
+                </button>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+</html>
